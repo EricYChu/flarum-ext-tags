@@ -13,6 +13,7 @@ namespace Flarum\Tags\Api\Serializer;
 
 use Flarum\Api\Serializer\AbstractSerializer;
 use Flarum\Api\Serializer\DiscussionSerializer;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class TagSerializer extends AbstractSerializer
 {
@@ -22,12 +23,25 @@ class TagSerializer extends AbstractSerializer
     protected $type = 'tags';
 
     /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    /**
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function getDefaultAttributes($tag)
     {
         $attributes = [
-            'name'               => $tag->name,
+            'name'               => $this->translateTagName($tag->name, $tag->slug),
             'description'        => $tag->description,
             'slug'               => $tag->slug,
             'color'              => $tag->color,
@@ -49,6 +63,22 @@ class TagSerializer extends AbstractSerializer
         }
 
         return $attributes;
+    }
+
+    /**
+     * @param string $name
+     * @param string $slug
+     * @return string
+     */
+    private function translateTagName($name, $slug)
+    {
+        $translation = $this->translator->trans($key = 'flarum-tags.tag.'.strtolower($slug));
+
+        if ($translation !== $key) {
+            return $translation;
+        }
+
+        return $name;
     }
 
     /**
