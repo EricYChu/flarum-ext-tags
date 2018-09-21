@@ -42,7 +42,7 @@ class TagSerializer extends AbstractSerializer
     {
         $attributes = [
             'name'               => $this->translateTagName($tag->name, $tag->slug),
-            'description'        => $tag->description,
+            'description'        => $this->translateTagDescription($tag->description, $tag->slug),
             'slug'               => $tag->slug,
             'color'              => $tag->color,
             'backgroundUrl'      => $tag->background_path,
@@ -72,13 +72,29 @@ class TagSerializer extends AbstractSerializer
      */
     private function translateTagName($name, $slug)
     {
-        $translation = $this->translator->trans($key = 'flarum-tags.tag.'.strtolower($slug));
+        $translation = $this->translator->trans($key = 'flarum-tags.tag_name.'.strtolower($slug));
 
         if ($translation !== $key) {
             return $translation;
         }
 
         return $name;
+    }
+
+    /**
+     * @param string $description
+     * @param string $slug
+     * @return string
+     */
+    private function translateTagDescription($description, $slug)
+    {
+        $translation = $this->translator->trans($key = 'flarum-tags.tag_description.'.strtolower($slug));
+
+        if ($translation !== $key) {
+            return $translation;
+        }
+
+        return $description;
     }
 
     /**
