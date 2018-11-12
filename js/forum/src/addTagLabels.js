@@ -12,7 +12,7 @@ export default function() {
     const tags = this.props.discussion.tags();
 
     if (tags && tags.length) {
-      items.add('tags', tagsLabel(tags), 10);
+      items.add('tags', tagsLabel(tags), 20);
     }
   });
 
@@ -40,7 +40,7 @@ export default function() {
     const tags = this.props.discussion.tags();
 
     if (tags && tags.length) {
-      items.add('tags', tagsLabel(tags, {link: true}), 5);
+      items.add('tags', tagsLabel(tags, {link: true}), 20);
     }
   });
 }

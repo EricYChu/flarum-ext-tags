@@ -10,13 +10,11 @@ System.register('flarum/tags/addTagComposer', ['flarum/extend', 'flarum/componen
       var tag = app.store.getBy('tags', 'slug', this.params().tags);
 
       if (tag) {
-        (function () {
-          var parent = tag.parent();
-          var tags = parent ? [parent, tag] : [tag];
-          promise.then(function (component) {
-            return component.tags = tags;
-          });
-        })();
+        var parent = tag.parent();
+        var tags = parent ? [parent, tag] : [tag];
+        promise.then(function (component) {
+          return component.tags = tags;
+        });
       }
     });
 
@@ -202,7 +200,7 @@ System.register('flarum/tags/addTagLabels', ['flarum/extend', 'flarum/components
       var tags = this.props.discussion.tags();
 
       if (tags && tags.length) {
-        items.add('tags', tagsLabel(tags), 10);
+        items.add('tags', tagsLabel(tags), 20);
       }
     });
 
@@ -230,7 +228,7 @@ System.register('flarum/tags/addTagLabels', ['flarum/extend', 'flarum/components
       var tags = this.props.discussion.tags();
 
       if (tags && tags.length) {
-        items.add('tags', tagsLabel(tags, { link: true }), 5);
+        items.add('tags', tagsLabel(tags, { link: true }), 20);
       }
     });
   });
@@ -347,7 +345,7 @@ System.register('flarum/tags/components/DiscussionTaggedPost', ['flarum/componen
 
         function DiscussionTaggedPost() {
           babelHelpers.classCallCheck(this, DiscussionTaggedPost);
-          return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(DiscussionTaggedPost).apply(this, arguments));
+          return babelHelpers.possibleConstructorReturn(this, (DiscussionTaggedPost.__proto__ || Object.getPrototypeOf(DiscussionTaggedPost)).apply(this, arguments));
         }
 
         babelHelpers.createClass(DiscussionTaggedPost, [{
@@ -392,7 +390,7 @@ System.register('flarum/tags/components/DiscussionTaggedPost', ['flarum/componen
         }], [{
           key: 'initProps',
           value: function initProps(props) {
-            babelHelpers.get(Object.getPrototypeOf(DiscussionTaggedPost), 'initProps', this).call(this, props);
+            babelHelpers.get(DiscussionTaggedPost.__proto__ || Object.getPrototypeOf(DiscussionTaggedPost), 'initProps', this).call(this, props);
 
             var oldTags = props.post.content()[0];
             var newTags = props.post.content()[1];
@@ -450,7 +448,7 @@ System.register('flarum/tags/components/TagDiscussionModal', ['flarum/components
 
         function TagDiscussionModal() {
           babelHelpers.classCallCheck(this, TagDiscussionModal);
-          return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(TagDiscussionModal).apply(this, arguments));
+          return babelHelpers.possibleConstructorReturn(this, (TagDiscussionModal.__proto__ || Object.getPrototypeOf(TagDiscussionModal)).apply(this, arguments));
         }
 
         babelHelpers.createClass(TagDiscussionModal, [{
@@ -458,7 +456,7 @@ System.register('flarum/tags/components/TagDiscussionModal', ['flarum/components
           value: function init() {
             var _this2 = this;
 
-            babelHelpers.get(Object.getPrototypeOf(TagDiscussionModal.prototype), 'init', this).call(this);
+            babelHelpers.get(TagDiscussionModal.prototype.__proto__ || Object.getPrototypeOf(TagDiscussionModal.prototype), 'init', this).call(this);
 
             this.tags = app.store.all('tags');
 
@@ -833,7 +831,7 @@ System.register('flarum/tags/components/TagHero', ['flarum/Component'], function
 
         function TagHero() {
           babelHelpers.classCallCheck(this, TagHero);
-          return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(TagHero).apply(this, arguments));
+          return babelHelpers.possibleConstructorReturn(this, (TagHero.__proto__ || Object.getPrototypeOf(TagHero)).apply(this, arguments));
         }
 
         babelHelpers.createClass(TagHero, [{
@@ -892,7 +890,7 @@ System.register('flarum/tags/components/TagLinkButton', ['flarum/components/Link
 
         function TagLinkButton() {
           babelHelpers.classCallCheck(this, TagLinkButton);
-          return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(TagLinkButton).apply(this, arguments));
+          return babelHelpers.possibleConstructorReturn(this, (TagLinkButton.__proto__ || Object.getPrototypeOf(TagLinkButton)).apply(this, arguments));
         }
 
         babelHelpers.createClass(TagLinkButton, [{
@@ -956,7 +954,7 @@ System.register('flarum/tags/components/TagsPage', ['flarum/Component', 'flarum/
 
         function TagsPage() {
           babelHelpers.classCallCheck(this, TagsPage);
-          return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(TagsPage).apply(this, arguments));
+          return babelHelpers.possibleConstructorReturn(this, (TagsPage.__proto__ || Object.getPrototypeOf(TagsPage)).apply(this, arguments));
         }
 
         babelHelpers.createClass(TagsPage, [{
@@ -1086,7 +1084,7 @@ System.register('flarum/tags/helpers/tagIcon', [], function (_export, _context) 
   "use strict";
 
   function tagIcon(tag) {
-    var attrs = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+    var attrs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
     attrs.className = 'icon TagIcon ' + (attrs.className || '');
 
@@ -1114,7 +1112,7 @@ System.register('flarum/tags/helpers/tagLabel', ['flarum/utils/extract'], functi
 
   var extract;
   function tagLabel(tag) {
-    var attrs = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+    var attrs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
     attrs.style = attrs.style || {};
     attrs.className = 'TagLabel ' + (attrs.className || '');
@@ -1160,7 +1158,7 @@ System.register('flarum/tags/helpers/tagsLabel', ['flarum/utils/extract', 'flaru
 
   var extract, tagLabel, sortTags;
   function tagsLabel(tags) {
-    var attrs = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+    var attrs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
     var children = [];
     var link = extract(attrs, 'link');
@@ -1273,7 +1271,7 @@ System.register('flarum/tags/models/Tag', ['flarum/Model', 'flarum/utils/mixin',
 
         function Tag() {
           babelHelpers.classCallCheck(this, Tag);
-          return babelHelpers.possibleConstructorReturn(this, Object.getPrototypeOf(Tag).apply(this, arguments));
+          return babelHelpers.possibleConstructorReturn(this, (Tag.__proto__ || Object.getPrototypeOf(Tag)).apply(this, arguments));
         }
 
         return Tag;
